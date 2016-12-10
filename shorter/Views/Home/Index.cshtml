@@ -1,14 +1,15 @@
 ﻿<h3>Copy and paste your link here</h3>
+<div class="alert alert-success" id="alert" role="alert" style="display: none">
+    <strong>Well done!</strong>Your link is copied to the clipboard
+</div>
 <div class="row">
     <div class="col-md-12">
-        <input type="text" id="link-url" class="form-control" placeholder="Your original URL here">
+        <input type="text" data-toggle="tooltip" data-placement="top" title="You should copy and paste your link" id="link-url" class="form-control" placeholder="Your original URL here">
     </div>
 </div>
 <hr />
 
 @section scripts
 {
-    <script>
-
-    </script>
+    @Scripts.Render("~/bundles/page")
 }
