@@ -7,5 +7,6 @@ namespace ServiceInterface
     {
         Task<string> CreateShortUrlForIp(string userIp, string url);
         Task<string> CreateShortUrlForUser(Guid userId, string url);
+        Task<string> UrlOriginal(string shorturl);
     }
 }

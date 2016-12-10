@@ -98,6 +98,10 @@
     <Compile Include="Migrations\201612100638406_add-chorturlcolumn.Designer.cs">
       <DependentUpon>201612100638406_add-chorturlcolumn.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612100703447_add-expired.cs" />
+    <Compile Include="Migrations\201612100703447_add-expired.Designer.cs">
+      <DependentUpon>201612100703447_add-expired.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ShortenURlDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -121,6 +125,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612100638406_add-chorturlcolumn.resx">
       <DependentUpon>201612100638406_add-chorturlcolumn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612100703447_add-expired.resx">
+      <DependentUpon>201612100703447_add-expired.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

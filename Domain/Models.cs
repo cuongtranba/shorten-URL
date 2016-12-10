@@ -7,6 +7,10 @@ namespace Domain
 {
     public class ShortUrl
     {
+        public ShortUrl()
+        {
+            CreatedAt = DateTime.UtcNow;
+        }
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
@@ -20,6 +24,7 @@ namespace Domain
         public int? UserUrlId { get; set; }
         public virtual UserIp UserIp { get; set; }
         public virtual UserUrl UserUrl { get; set; }
+
     }
 
     public class UserIp
@@ -27,6 +32,7 @@ namespace Domain
         public UserIp()
         {
             ShortUrls = new List<ShortUrl>();
+            CreatedAt = DateTime.UtcNow;
         }
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -34,10 +40,18 @@ namespace Domain
         [StringLength(36)]
         public string Ip { get; set; }
         public virtual ICollection<ShortUrl> ShortUrls { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public bool IsDeleted { get; set; }
+        public bool IsExpired { get; set; }
+
     }
 
     public class UserUrl
     {
+        public UserUrl()
+        {
+            ShortUrls = new List<ShortUrl>();
+        }
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
