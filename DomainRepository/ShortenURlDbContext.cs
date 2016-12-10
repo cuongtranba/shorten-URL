@@ -13,5 +13,6 @@ namespace DomainRepository
         public DbSet<ShortUrl> ShortUrl { get; set; }
         public DbSet<UserIp> UserIp { get; set; }
         public DbSet<UserUrl> UserUrl { get; set; }
+        public DbSet<RequestHistory> RequestHistory { get; set; }
     }
 }

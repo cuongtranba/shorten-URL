@@ -17,6 +17,7 @@ namespace shorter.App_Start
             var builder = new ContainerBuilder();
             builder.RegisterControllers(typeof(MvcApplication).Assembly).PropertiesAutowired();
             builder.RegisterModule<ServiceIOCModule>();
+            builder.RegisterFilterProvider();
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
         }

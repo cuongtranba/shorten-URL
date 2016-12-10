@@ -12,7 +12,7 @@
             seft.prop("disabled", true);
             $.get("/home/GetShortUrl", { url: data }, function (data) {
                 seft.prop("disabled", false);
-                seft.val(data);
+                seft.val(window.location.href + data);
                 seft.select();
                 seft.removeClass("loadinggif");
             });

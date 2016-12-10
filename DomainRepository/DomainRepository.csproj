@@ -102,6 +102,14 @@
     <Compile Include="Migrations\201612100703447_add-expired.Designer.cs">
       <DependentUpon>201612100703447_add-expired.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612101630586_HistoryTable.cs" />
+    <Compile Include="Migrations\201612101630586_HistoryTable.Designer.cs">
+      <DependentUpon>201612101630586_HistoryTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612101643445_update-requesthistory.cs" />
+    <Compile Include="Migrations\201612101643445_update-requesthistory.Designer.cs">
+      <DependentUpon>201612101643445_update-requesthistory.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ShortenURlDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -128,6 +136,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612100703447_add-expired.resx">
       <DependentUpon>201612100703447_add-expired.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612101630586_HistoryTable.resx">
+      <DependentUpon>201612101630586_HistoryTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612101643445_update-requesthistory.resx">
+      <DependentUpon>201612101643445_update-requesthistory.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

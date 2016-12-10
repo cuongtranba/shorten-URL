@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using shorter.Filter;
 using ServiceInterface;
 
 namespace shorter.Controllers
@@ -19,7 +20,7 @@ namespace shorter.Controllers
         {
             return View();
         }
-
+        [TraceActionFilter]
         [Route("go/{shorturl?}", Name = "go")]
         public async Task<ActionResult> Go(string shorturl)
         {

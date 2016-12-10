@@ -192,6 +192,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Filter\Trace.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -279,6 +280,10 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{3FFCE3F2-6792-4706-A593-076379F41143}</Project>
+      <Name>Domain</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ServiceImplementation\ServiceImplementation.csproj">
       <Project>{E68AC563-85D2-4193-B227-80CED54A744C}</Project>
       <Name>ServiceImplementation</Name>

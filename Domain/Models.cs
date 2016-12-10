@@ -10,6 +10,7 @@ namespace Domain
         public ShortUrl()
         {
             CreatedAt = DateTime.UtcNow;
+            RequestHistorie = new List<RequestHistory>();
         }
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -24,7 +25,7 @@ namespace Domain
         public int? UserUrlId { get; set; }
         public virtual UserIp UserIp { get; set; }
         public virtual UserUrl UserUrl { get; set; }
-
+        public virtual ICollection<RequestHistory> RequestHistorie { get; set; }
     }
 
     public class UserIp
@@ -57,5 +58,23 @@ namespace Domain
         public int Id { get; set; }
         public Guid UserId { get; set; }
         public virtual ICollection<ShortUrl> ShortUrls { get; set; }
+    }
+
+    public class RequestHistory
+    {
+        public RequestHistory()
+        {
+            HitAt = DateTime.UtcNow;
+        }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+        public DateTime HitAt { get; set; }
+        public int ShortUrlId { get; set; }
+        public virtual ShortUrl ShortUrl { get; set; }
+        public string Country { get; set; }
+        public string Browser { get; set; }
+        public string Platforms { get; set; }
+        public string Website { get; set; }
     }
 }
