@@ -6,6 +6,6 @@ namespace ServiceInterface
 {
     public interface ITraceService
     {
-        void Trace(RequestHistory requestHistory);
+        void Trace(string shortUrl, RequestHistory requestHistory);
     }
 }

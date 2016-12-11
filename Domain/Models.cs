@@ -75,6 +75,5 @@ namespace Domain
         public string Country { get; set; }
         public string Browser { get; set; }
         public string Platforms { get; set; }
-        public string Website { get; set; }
     }
 }

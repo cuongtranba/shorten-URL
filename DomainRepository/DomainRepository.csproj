@@ -110,6 +110,10 @@
     <Compile Include="Migrations\201612101643445_update-requesthistory.Designer.cs">
       <DependentUpon>201612101643445_update-requesthistory.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612110205130_delete-column.cs" />
+    <Compile Include="Migrations\201612110205130_delete-column.Designer.cs">
+      <DependentUpon>201612110205130_delete-column.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ShortenURlDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -142,6 +146,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612101643445_update-requesthistory.resx">
       <DependentUpon>201612101643445_update-requesthistory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612110205130_delete-column.resx">
+      <DependentUpon>201612110205130_delete-column.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

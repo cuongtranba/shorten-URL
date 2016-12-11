@@ -1,14 +1,27 @@
-﻿using System.Web.Routing;
+﻿using System.Linq;
+using System.Web.Routing;
 using Domain;
+using DomainRepository;
 using ServiceInterface;
 
 namespace ServiceImplementation
 {
-    public class TraceService:ITraceService
+    public class TraceService : BaseService, ITraceService
     {
-        public void Trace(RequestHistory requestHistory)
+        public TraceService(ShortenURlDbContext shortenURlDbContext) : base(shortenURlDbContext)
         {
-            throw new System.NotImplementedException();
         }
+
+        public void Trace(string shortUrl, RequestHistory requestHistory)
+        {
+            shortUrl = shortUrl.Split('/')[2];
+            var url = ShortenURlDbContext.ShortUrl.FirstOrDefault(c => c.ShortUrlString == shortUrl);
+            if (url != null)
+            {
+                url.RequestHistorie.Add(requestHistory);
+                ShortenURlDbContext.SaveChanges();
+            }
+        }
+
     }
 }
