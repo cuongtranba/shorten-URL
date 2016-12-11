@@ -1,15 +1,46 @@
-﻿<h3>Copy and paste your link here</h3>
-<div class="alert alert-success" id="alert" role="alert" style="display: none">
-    <strong>Well done!</strong>Your link is copied to the clipboard
-</div>
-<div class="row">
-    <div class="col-md-12">
-        <input type="text" data-toggle="tooltip" data-placement="top" title="You should copy and paste your link" id="link-url" class="form-control" placeholder="Your original URL here">
+﻿@model List<Domain.URLViewModel>
+<h3>Copy and paste your link here</h3>
+<div class="jumbotron">
+    <div class="row">
+        <div class="col-md-12">
+            <input type="text" data-toggle="tooltip" data-placement="top" title="You should copy and paste your link" id="link-url" class="form-control" placeholder="Your original URL here">
+        </div>
     </div>
+    <hr />
 </div>
-<hr />
+
+
+<div class="row">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Original URL</th>
+                <th>Created</th>
+                <th>Short URL</th>
+                <th>All Click</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in @Model)
+            {
+                <tr>
+                    <th>@item.OriginalURL</th>
+                    <td>@item.Created</td>
+                    <td>/go/@item.ShortURL</td>
+                    <td>
+                        @item.AllClick
+                        <button onclick="location.href='@Url.Action("Report", "Home",new { urlId = @item.URLId})'" type="button" class="btn btn-link" aria-label="Left Align">
+                            <span class="glyphicon glyphicon-th-list fa-fw" aria-hidden="true"></span>
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
 
 @section scripts
 {
     @Scripts.Render("~/bundles/page")
 }
+

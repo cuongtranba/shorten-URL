@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,7 +11,7 @@ namespace ServiceImplementation
 {
     public class UrlService : BaseService, IUrlService
     {
-        private ICreateShortURLService createShortUrlService;
+        private readonly ICreateShortURLService createShortUrlService;
 
         public UrlService(ShortenURlDbContext shortenURlDbContext, ICreateShortURLService createShortUrlService) : base(shortenURlDbContext)
         {
@@ -75,6 +76,37 @@ namespace ServiceImplementation
             var firstOrDefault = await ShortenURlDbContext.ShortUrl.FirstOrDefaultAsync(c => c.ShortUrlString == shorturl);
             var url = firstOrDefault?.Url;
             return url;
+        }
+
+        public async Task<List<URLViewModel>> GetUrlByClient(string key, bool isUser)
+        {
+            if (isUser)
+            {
+                var guid = Guid.Parse(key);
+                var urlViewModel =
+                    await ShortenURlDbContext.ShortUrl.Include(url => url.RequestHistorie).Where(c => c.UserUrl.UserId == guid).Select(d => new URLViewModel()
+                    {
+                        Created = d.CreatedAt,
+                        ShortURL = d.ShortUrlString,
+                        URLId = d.Id,
+                        AllClick = d.RequestHistorie.Count,
+                        OriginalURL = d.Url
+                    }).ToListAsync();
+                return urlViewModel;
+            }
+            else
+            {
+                var urlViewModel =
+                    await ShortenURlDbContext.ShortUrl.Include(url => url.RequestHistorie).Where(c => c.UserIp.Ip == key).Select(d => new URLViewModel()
+                    {
+                        Created = d.CreatedAt,
+                        ShortURL = d.ShortUrlString,
+                        URLId = d.Id,
+                        AllClick = d.RequestHistorie.Count,
+                        OriginalURL = d.Url
+                    }).ToListAsync();
+                return urlViewModel;
+            }
         }
     }
 }

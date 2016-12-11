@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using Autofac;
+using Domain;
 using Microsoft.AspNet.Identity;
+using Newtonsoft.Json;
 using shorter.Filter;
 using ServiceInterface;
 
@@ -10,15 +14,25 @@ namespace shorter.Controllers
     public class HomeController : Controller
     {
         private IUrlService urlService;
-
-        public HomeController(IUrlService urlService)
+        private IComponentContext ComponentContext;
+        public HomeController(IUrlService urlService, IComponentContext componentContext)
         {
             this.urlService = urlService;
+            ComponentContext = componentContext;
         }
 
-        public ActionResult Index(string shorturl)
+        public async Task<ActionResult> Index()
         {
-            return View();
+            var model = new List<URLViewModel>();
+            if (User.Identity.IsAuthenticated)
+            {
+                model = await urlService.GetUrlByClient(User.Identity.GetUserId(), true);
+            }
+            else
+            {
+                model = await urlService.GetUrlByClient(Request.UserHostAddress, false);
+            }
+            return View(model);
         }
         [TraceActionFilter]
         [Route("go/{shorturl?}", Name = "go")]
@@ -48,6 +62,18 @@ namespace shorter.Controllers
                 shortUrl = await urlService.CreateShortUrlForIp(Request.UserHostAddress, url);
             }
             return Json(Url.RouteUrl("go", new { shorturl = shortUrl }), JsonRequestBehavior.AllowGet);
+        }
+
+        public async Task<ActionResult> Report(int urlId)
+        {
+            var modelByDate = await ComponentContext.ResolveNamed<IReport>(ReportType.ReportByLast7Days.ToString()).GetReport(urlId);
+
+            var modelByCountry = await ComponentContext.ResolveNamed<IReport>(ReportType.ReportByCountry.ToString()).GetReport(urlId);
+
+            var modelByBrowser = await ComponentContext.ResolveNamed<IReport>(ReportType.ReportByBrowser.ToString()).GetReport(urlId);
+
+            var modelByPlatform = await ComponentContext.ResolveNamed<IReport>(ReportType.ReportByPlatforms.ToString()).GetReport(urlId);
+            return View(Tuple.Create(modelByDate, modelByCountry, modelByBrowser, modelByPlatform));
         }
     }
 }

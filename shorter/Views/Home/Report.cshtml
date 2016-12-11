@@ -1,0 +1,146 @@
+﻿@using Domain
+@model Tuple<List<Domain.DataPoint>, List<Domain.DataPoint>, List<Domain.DataPoint>, List<Domain.DataPoint>>
+@{
+    ViewBag.Title = "Report";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <div id="@ReportType.ReportByLast7Days.ToString()" style="height: 400px;">
+
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div id="@ReportType.ReportByBrowser.ToString()" style="height: 400px;">
+
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div id="@ReportType.ReportByCountry.ToString()" style="height: 400px;">
+
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div id="@ReportType.ReportByPlatforms.ToString()" style="height: 400px;">
+
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    window.onload = function () {
+        var chartReportByLast7Days = new CanvasJS.Chart('@ReportType.ReportByLast7Days.ToString()', {
+            theme: "theme2",
+            animationEnabled: true,
+            title: {
+                text: "Total hits"
+            },
+            subtitles: [
+                { text: "Daily hits in last 7 days" }
+            ],
+            axisY: {
+                title: "Total hits"
+            },
+            axisX: {
+
+            },
+            data: [
+            {
+                xValueType: "dateTime",
+                type: "line", //change type to bar, line, area, pie, etc
+                dataPoints: [
+                        @foreach (var dataPoint in Model.Item1)
+                        {
+                            <text>{ x: new Date(@dataPoint.DateTime.Year, @dataPoint.DateTime.Month, @dataPoint.DateTime.Day), y: @dataPoint.HitCount },</text>
+                        }
+                ]
+                //Uncomment below line to add data coming from the controller.
+            }
+            ]
+        });
+        chartReportByLast7Days.render();
+        chartReportByLast7Days = {};
+        var reportByBrowser = new CanvasJS.Chart('@ReportType.ReportByBrowser.ToString()', {
+            title: {
+                text: "Total hits by browser",
+                fontSize: 24
+            },
+            legend :{
+                verticalAlign: "center",
+                horizontalAlign: "right"
+            },
+            data: [
+            {
+                type: "pie",
+                showInLegend: true,
+                toolTipContent: "{label} <br/> {y} %",
+                indexLabel: "{y} %",
+                dataPoints: [
+                    @foreach (var dataPoint in Model.Item3)
+                    {
+                        <text>{ label: '@dataPoint.Label',  y: @dataPoint.Percent, legendText: '@dataPoint.LegendText'},</text>
+                    }
+                ]
+            }
+            ]
+        });
+        reportByBrowser.render();
+        reportByBrowser = {};
+        var reportByCountry = new CanvasJS.Chart('@ReportType.ReportByCountry.ToString()', {
+            title: {
+                text: "Total hits by Country",
+                fontSize: 24
+            },
+            legend :{
+                verticalAlign: "center",
+                horizontalAlign: "right"
+            },
+            data: [
+            {
+                type: "pie",
+                showInLegend: true,
+                toolTipContent: "{label} <br/> {y} %",
+                indexLabel: "{y} %",
+                dataPoints: [
+                    @foreach (var dataPoint in Model.Item2)
+                    {
+                        <text>{ label: '@dataPoint.Label',  y: @dataPoint.Percent, legendText: '@dataPoint.LegendText'},</text>
+                    }
+                ]
+            }
+            ]
+        });
+
+        reportByCountry.render();
+        reportByCountry = {};
+        var reportByPlatform = new CanvasJS.Chart('@ReportType.ReportByPlatforms.ToString()', {
+            title: {
+                text: "Total hits by Platform",
+                fontSize: 24
+            },
+            legend :{
+                verticalAlign: "center",
+                horizontalAlign: "right"
+            },
+            data: [
+            {
+                type: "pie",
+                showInLegend: true,
+                toolTipContent: "{label} <br/> {y} %",
+                indexLabel: "{y} %",
+                dataPoints: [
+                    @foreach (var dataPoint in Model.Item4)
+                    {
+                        <text>{ label: '@dataPoint.Label',  y: @dataPoint.Percent, legendText: '@dataPoint.LegendText'},</text>
+                    }
+                ]
+            }
+            ]
+        });
+        reportByPlatform.render();
+        reportByPlatform = {};
+    };
+</script>

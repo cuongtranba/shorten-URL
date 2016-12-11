@@ -87,6 +87,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ICreateShortURLService.cs" />
+    <Compile Include="IReport.cs" />
     <Compile Include="ITraceService.cs" />
     <Compile Include="IUrlService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
